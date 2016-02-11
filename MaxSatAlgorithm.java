@@ -14,7 +14,7 @@ import java.util.Random;
 
 public class MaxSatAlgorithm {
 
-    public static void Magic {
+    public static void Magic(){
         JOptionPane.showMessageDialog(null, "Is magic!",
                 "Friendship", JOptionPane.INFORMATION_MESSAGE);
     }

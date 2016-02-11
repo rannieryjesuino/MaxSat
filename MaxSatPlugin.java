@@ -13,7 +13,7 @@ import br.uece.lotus.tools.MaxSat.MaxSatAlgorithm;
  * Created by Ranniery on 11/02/2016.
  */
 
-public class MaxSatPlugin extends Plugin{
+public class MaxSatPlugin extends Plugin {
 
     private UserInterface mUserInterface;
     private ProjectExplorer mProjectExplorer;
@@ -23,11 +23,12 @@ public class MaxSatPlugin extends Plugin{
         mUserInterface = (UserInterface) extensionManager.get(UserInterface.class);
         mProjectExplorer = (ProjectExplorer) extensionManager.get(ProjectExplorer.class);
 
-        mUserInterface.getMainMenu().newItem("MaxSat")
+        mUserInterface.getMainMenu().newItem("3-SAT/MaxSat")
                 .setWeight(Integer.MAX_VALUE)
                 .setAction(() -> {
                     MaxSatAlgorithm.Magic();
                 })
                 .create();
 
+    }
 }
