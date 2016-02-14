@@ -9,6 +9,8 @@ import br.uece.seed.ext.ExtensionManager;
 import br.uece.seed.ext.Plugin;
 import br.uece.lotus.tools.MaxSat.MaxSatAlgorithm;
 
+import java.io.IOException;
+
 /**
  * Created by Ranniery on 11/02/2016.
  */
@@ -26,7 +28,11 @@ public class MaxSatPlugin extends Plugin {
         mUserInterface.getMainMenu().newItem("3-SAT/MaxSat")
                 .setWeight(Integer.MAX_VALUE)
                 .setAction(() -> {
-                    MaxSatAlgorithm.Magic();
+                    try {
+                        MaxSatAlgorithm.TxtToMatrix();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 })
                 .create();
 
