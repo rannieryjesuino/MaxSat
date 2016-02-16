@@ -79,21 +79,21 @@ public class MaxSatAlgorithm {
 
             indice5 = indice2 = matrix[i][1];
             if(indice2 < 0) {
-                indice2 = nVars*3 + abs(indice2);
+                indice2 = nVars*3 - 1 + abs(indice2);
                 indice5 = nVars-1 + abs(indice5);
             }
             else{
-                indice2 = nVars*2 + indice2;
+                indice2 = nVars*2 - 1 + indice2;
                 indice5 = indice5 - 1;
             }
 
             indice6 = indice3 = matrix[i][2];
             if(indice3 < 0) {
-                indice3 = nVars*3 + abs(indice3);
+                indice3 = nVars*3 - 1 + abs(indice3);
                 indice6 = nVars-1 + abs(indice6);
             }
             else{
-                indice3 = nVars*2 + indice3;
+                indice3 = nVars*2 - 1 + indice3;
                 indice6 = indice6 - 1;
             }
 
