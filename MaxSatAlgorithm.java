@@ -28,8 +28,8 @@ public class MaxSatAlgorithm {
         //linhas dos subgrafos com 2 vertices, e a partir de nVars*2+1 até nVars*4 vao ser as linhas dos subgrafos de
         //3 vertices.
         
-        int[][] graph = new int[nVars*4][nVars*4];
-        graph = zerarMatriz(graph, nVars*4);
+        int[][] graph = new int[nVars*2 + nClausulas*3][nVars*2 + nClausulas*3];
+        graph = zerarMatriz(graph, nVars*2 + nClausulas*3);
 
         int i = 0;
         int j = 0;
@@ -58,64 +58,71 @@ public class MaxSatAlgorithm {
         int indice1 = 0;
         int indice2 = 0;
         int indice3 = 0;
-        //indice4 ate indice6 sao os indices das variaveis dos subgrafos pares
+
+        //indice4 ate indice6 vao guardar os indices das novas linhas 'criadas' pra cada variavel de cada clausula
         int indice4 = 0;
         int indice5 = 0;
         int indice6 = 0;
 
+
+        //j vai ser o indice da nova linha 'criada' pra cada variavel de cada clausula.
+        j = nVars*2 - 1;
+
         for(i = 1 ; i < nClausulas+1; i++){
             //Verifica se o numero que ele pegou eh negativo. Se for, entao a representacao dele vai ta na linha
-            //(nVars*3 - 1) + indice da variavel.
-            //Se for positivo, entao a representacao dele vai ta na linha (nVars*2 - 1) + indice da variavel.
-            indice4 = indice1 = matrix[i][0];
+            //(nVars - 1) + indice da variavel.
+            //Se for positivo, entao a representacao dele vai ta na linha indice - 1.
+            indice1 = matrix[i][0];
             if(indice1 < 0) {
-                indice1 = nVars*3 - 1 + abs(indice1);
-                indice4 = nVars - 1 + abs(indice4);
+                indice1 = nVars - 1 + abs(indice1);
             }
             else{
-                indice1 = nVars*2 - 1 + indice1;
-                indice4 = indice4 - 1;
+                indice1 = indice1 - 1;
             }
 
-            indice5 = indice2 = matrix[i][1];
+            //Liga o vértice ao dispositivo de 2 vertices correspondente.
+            graph[indice1][j] = 1;
+            graph[j][indice1] = 1;
+            indice4 = j;
+
+            j++;
+
+            indice2 = matrix[i][1];
             if(indice2 < 0) {
-                indice2 = nVars*3 - 1 + abs(indice2);
-                indice5 = nVars-1 + abs(indice5);
+                indice2 = nVars-1 + abs(indice2);
             }
             else{
-                indice2 = nVars*2 - 1 + indice2;
-                indice5 = indice5 - 1;
+                indice2 = indice2 - 1;
             }
 
-            indice6 = indice3 = matrix[i][2];
+            graph[indice2][j] = 1;
+            graph[j][indice2] = 1;
+            indice5 = j;
+
+            j++;
+
+            indice3 = matrix[i][2];
             if(indice3 < 0) {
-                indice3 = nVars*3 - 1 + abs(indice3);
-                indice6 = nVars-1 + abs(indice6);
+                indice3 = nVars-1 + abs(indice3);
             }
             else{
-                indice3 = nVars*2 - 1 + indice3;
-                indice6 = indice6 - 1;
+                indice3 = indice3 - 1;
             }
+
+            graph[indice3][j] = 1;
+            graph[j][indice3] = 1;
+            indice6 = j;
+
+            j++;
 
             //Cria arestas entre as 3 variaveis lidas, formando um triangulo. Lembrando que sempre tem que fazer
             //a aresta "indo" e "voltando", pois o grafo é nao orientado.
-            graph[indice1][indice2] = 1;
-            graph[indice1][indice3] = 1;
-            graph[indice2][indice1] = 1;
-            graph[indice2][indice3] = 1;
-            graph[indice3][indice1] = 1;
-            graph[indice3][indice2] = 1;
-
-            //Agora cria arestas entre os subgrafos pares e os vertices dos triangulos correspondentes.
-
-            graph[indice4][indice1] = 1;
-            graph[indice1][indice4] = 1;
-
-            graph[indice5][indice2] = 1;
-            graph[indice2][indice5] = 1;
-
-            graph[indice6][indice3] = 1;
-            graph[indice3][indice6] = 1;
+            graph[indice4][indice5] = 1;
+            graph[indice4][indice6] = 1;
+            graph[indice5][indice4] = 1;
+            graph[indice5][indice6] = 1;
+            graph[indice6][indice4] = 1;
+            graph[indice6][indice5] = 1;
         }
 
         return graph;
