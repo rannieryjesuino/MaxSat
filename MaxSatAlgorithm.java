@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -42,9 +43,9 @@ public class MaxSatAlgorithm {
 
         for(i = 0; i < nVars; i++){
             //Faz uma aresta entre Xi e -Xi.
-            graph[i][nVars-1 + i] = 1;
+            graph[i][nVars + i] = 1;
             //Eh preciso setar também na linha da variavel negativa, para fazer a aresta "de volta".
-            graph[nVars-1 + i][i] = 1;
+            graph[nVars + i][i] = 1;
         }
 
 
@@ -125,32 +126,43 @@ public class MaxSatAlgorithm {
             graph[indice6][indice5] = 1;
         }
 
+        System.out.println(Arrays.deepToString(graph));
+
         return graph;
     }
 
     public static int[][] TxtToMatrix() throws IOException {
 
-        BufferedReader firstFile = new BufferedReader(new FileReader("C:\\Users\\Ranniery\\Documents\\Computação\\PAA\\Trabalho MaxSat\\unWa-3SAT.txt"));
+        BufferedReader file = new BufferedReader(new FileReader("C:\\Users\\Ranniery\\Documents\\GitHub\\entrada.txt"));
 
         String currentLine;
         String[] separatedLine;
-        int nLines = NumberOfLines(firstFile);
-        int[][] arquivo1 = new int[nLines][];
+        //int nLines = NumberOfLines(file);
+        //nLines = 10;
+        int[][] arquivo1 = new int[301][3];
         int i = 0;
         int j = 0;
 
-        while( (currentLine = firstFile.readLine()) != null){
+        //System.out.println("cheguei 1");
+
+        while((currentLine = file.readLine()) != null){
+            //System.out.println("cheguei 0");
             separatedLine = currentLine.split(" ");
-            System.out.println(currentLine);
+            System.out.println(Arrays.toString(separatedLine));
 
             for(String aux : separatedLine){
                 arquivo1[i][j] = Integer.parseInt(aux);
+                //System.out.print(arquivo1[i][j] + " ");
                 j++;
             }
+
+            //System.out.println();
 
             j = 0;
             i++;
         }
+
+        file.close();
 
         return arquivo1;
     }
@@ -159,7 +171,14 @@ public class MaxSatAlgorithm {
         String aline;
         int count = 0;
 
-        while((aline = file.readLine()) != null){count++;}
+        while((aline = file.readLine()) != null){
+            count++;
+            //System.out.print("HUEHUE ");
+        }
+
+        System.out.println(count);
+
+        file.close();
 
         return count;
 

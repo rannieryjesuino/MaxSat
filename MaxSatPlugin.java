@@ -28,8 +28,10 @@ public class MaxSatPlugin extends Plugin {
         mUserInterface.getMainMenu().newItem("3-SAT/MaxSat")
                 .setWeight(Integer.MAX_VALUE)
                 .setAction(() -> {
+                    //System.out.println("cheguei 3");
                     try {
-                        MaxSatAlgorithm.TxtToMatrix();
+                        //System.out.println("cheguei 2");
+                        MaxSatAlgorithm.MatrixToGraph(MaxSatAlgorithm.TxtToMatrix());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
