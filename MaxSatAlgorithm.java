@@ -40,14 +40,20 @@ public class MaxSatAlgorithm {
         //Da posicao nVars até nVars*2 - 1 sao as negações das variáveis.
         //Ou seja, pra pegar a linha correspondente à negativa de uma variavel Xi, eu tenho que somar i ao numero
         //de nVars-1 (que eh onde acabam as variaveis positivas).
-
+/*
         for(i = 0; i < nVars; i++){
             //Faz uma aresta entre Xi e -Xi.
             graph[i][nVars + i] = 1;
             //Eh preciso setar também na linha da variavel negativa, para fazer a aresta "de volta".
             graph[nVars + i][i] = 1;
         }
-
+*/
+        for(i = 0; i < nVars; i = i+2){
+            //Faz uma aresta entre Xi e -Xi.
+            graph[i][i+1] = 1;
+            //Eh preciso setar também na linha da variavel negativa, para fazer a aresta "de volta".
+            graph[i+1][i] = 1;
+        }
 
         //Agora eh preciso setar os subgrafos de 3 vertices. O indice tem que comecar de nVars*2, pois a ultima variavel
         //negativa vai estar na posicao (nVars*2 - 1).
@@ -67,7 +73,7 @@ public class MaxSatAlgorithm {
 
 
         //j vai ser o indice da nova linha 'criada' pra cada variavel de cada clausula.
-        j = nVars*2 - 1;
+        j = nVars*2;
 
         for(i = 1 ; i < nClausulas+1; i++){
             //Verifica se o numero que ele pegou eh negativo. Se for, entao a representacao dele vai ta na linha
@@ -75,10 +81,10 @@ public class MaxSatAlgorithm {
             //Se for positivo, entao a representacao dele vai ta na linha indice - 1.
             indice1 = matrix[i][0];
             if(indice1 < 0) {
-                indice1 = nVars - 1 + abs(indice1);
+                indice1 = (abs(indice1) - 1)*2 + 1;
             }
             else{
-                indice1 = indice1 - 1;
+                indice1 = (indice1 - 1)*2;
             }
 
             //Liga o vértice ao dispositivo de 2 vertices correspondente.
@@ -90,10 +96,10 @@ public class MaxSatAlgorithm {
 
             indice2 = matrix[i][1];
             if(indice2 < 0) {
-                indice2 = nVars-1 + abs(indice2);
+                indice2 = (abs(indice2) - 1)*2 + 1;
             }
             else{
-                indice2 = indice2 - 1;
+                indice2 = (indice2 - 1)*2;
             }
 
             graph[indice2][j] = 1;
@@ -104,10 +110,10 @@ public class MaxSatAlgorithm {
 
             indice3 = matrix[i][2];
             if(indice3 < 0) {
-                indice3 = nVars-1 + abs(indice3);
+                indice3 = (abs(indice3) - 1)*2 + 1;
             }
             else{
-                indice3 = indice3 - 1;
+                indice3 = (indice3 - 1)*2;
             }
 
             graph[indice3][j] = 1;
