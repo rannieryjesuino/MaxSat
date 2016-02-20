@@ -1,17 +1,10 @@
-package br.uece.lotus.tools.MaxSat;
+package testelerarquivo;
 
-import br.uece.lotus.Component;
-import br.uece.lotus.State;
-import br.uece.lotus.Transition;
 
-import javax.swing.*;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
 
 import static java.lang.Math.abs;
 
@@ -48,7 +41,7 @@ public class MaxSatAlgorithm {
             graph[nVars + i][i] = 1;
         }
 */
-        for(i = 0; i < nVars; i = i+2){
+        for(i = 0; i < nVars+2; i = i+2){
             //Faz uma aresta entre Xi e -Xi.
             graph[i][i+1] = 1;
             //Eh preciso setar também na linha da variavel negativa, para fazer a aresta "de volta".
@@ -139,7 +132,7 @@ public class MaxSatAlgorithm {
 
     public static int[][] TxtToMatrix() throws IOException {
 
-        BufferedReader file = new BufferedReader(new FileReader("C:\\Users\\Ranniery\\Documents\\GitHub\\entrada.txt"));
+        BufferedReader file = new BufferedReader(new FileReader("C:\\Users\\MATHS\\Desktop\\entrada.txt"));
 
         String currentLine;
         String[] separatedLine;
