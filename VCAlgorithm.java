@@ -132,26 +132,29 @@ public class VCAlgorithm {
 		return 0;
 	}
 
-	static boolean removable(List<Integer> list, List<Integer> temp_cover2) {
+	static boolean removable(List<Integer> neighbor, List<Integer> cover) {
 		boolean check = true;
-		for (int i = 0; i < list.size(); i++)
-			if (temp_cover2.get(list.get(i)) == 0) {
+		for (int i = 0; i < neighbor.size(); i++) {
+			if (cover.get(neighbor.get(i)) == 0) {
 				check = false;
 				break;
 			}
+		}
 		return check;
 	}
 
-	static int max_removable(List<List<Integer>> neighbors, List<Integer> temp_cover2) {
+	static int max_removable(List<List<Integer>> neighbors, List<Integer> cover) {
 		int r = -1, max = -1;
-		for (int i = 0; i < temp_cover2.size(); i++) {
-			if (temp_cover2.get(i) == 1 && removable(neighbors.get(i), temp_cover2) == true) {
-				List<Integer> temp_cover = temp_cover2;
+		for (int i = 0; i < cover.size(); i++) {
+			if (cover.get(i) == 1 && removable(neighbors.get(i), cover) == true) {
+				List<Integer> temp_cover = cover;
 				temp_cover.set(i, 0);
 				int sum = 0;
-				for (int j = 0; j < temp_cover.size(); j++)
-					if (temp_cover.get(j) == 1 && removable(neighbors.get(j), temp_cover) == true)
+				for (int j = 0; j < temp_cover.size(); j++) {
+					if (temp_cover.get(j) == 1 && removable(neighbors.get(j), temp_cover) == true) {
 						sum++;
+					}
+				}
 				if (sum > max) {
 					max = sum;
 					r = i;
@@ -166,8 +169,9 @@ public class VCAlgorithm {
 		int r = 0;
 		while (r != -1) {
 			r = max_removable(neighbors, temp_cover);
-			if (r != -1)
+			if (r != -1) {
 				temp_cover.set(r, 0);
+			}
 		}
 		return temp_cover;
 	}
@@ -178,20 +182,23 @@ public class VCAlgorithm {
 		int i = 0;
 		for (i = 0; i < temp_cover.size(); i++) {
 			if (temp_cover.get(i) == 1) {
-				int sum = 0, index = 0;
-				for (int j = 0; j < neighbors.get(i).size(); j++)
+				int sum = 0;
+				int index = 0;
+				for (int j = 0; j < neighbors.get(i).size(); j++) {
 					if (temp_cover.get(neighbors.get(i).get(j)) == 0) {
 						index = j;
 						sum++;
 					}
+				}
 				if (sum == 1 && cover.get(neighbors.get(i).get(index)) == 0) {
 					temp_cover.get(neighbors.get(i).set(index, 1));
 					temp_cover.set(i, 0);
 					temp_cover = procedure_1(neighbors, temp_cover);
 					count++;
 				}
-				if (count > k)
+				if (count > k) {
 					break;
+				}
 			}
 		}
 		return temp_cover;
@@ -199,9 +206,11 @@ public class VCAlgorithm {
 
 	static int cover_size(List<Integer> cover) {
 		int count = 0;
-		for (int i = 0; i < cover.size(); i++)
-			if (cover.get(i) == 1)
+		for (int i = 0; i < cover.size(); i++) {
+			if (cover.get(i) == 1) {
 				count++;
+			}
+		}
 		return count;
 	}
 }
